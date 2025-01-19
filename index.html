@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" lang="fr" content="DotRace (by Boun) est un jeu de course stratégique inspiré du jeu classique de course sur des petits carreaux. Jouez avec d'autres joueurs sur des circuits personnalisés, où chaque déplacement suit des règles d'inertie et de trajectoire réalistes. Prévoyez vos mouvements, ralentissez avant les virages et optimisez votre vitesse pour finir premier. DotRace est parfait pour les amateurs de défis, de stratégie et de jeux de course sur papier et crayon." />
+    <meta name="description" lang="en" content="DotRace (by Boun) is a strategic racing game inspired by the classic Racetrack game. Compete with other players on custom tracks, where each move follows realistic inertia and trajectory rules. Plan your moves, slow down before curves, and optimize your speed to cross the finish line first. DotRace is perfect for fans of challenges, strategy, and classic paper-and-pencil racing games." />
+    <link rel="stylesheet" href="DotRace.css">
+    <title>🏎🖊 Dot Race</title>
+
+
+    <meta property="og:title" content="🏎🖊 Dot Race by Boun" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="http://svaret.free.fr/DotRace/DotRace.png" />
+    <meta property="og:url" content="http://svaret.free.fr/DotRace/" />
+    <meta property="og:description" content="DotRace (by Boun) is a strategic racing game inspired by the classic Racetrack game. Compete with other players on custom tracks, where each move follows realistic inertia and trajectory rules. Plan your moves, slow down before curves, and optimize your speed to cross the finish line first. DotRace is perfect for fans of challenges, strategy, and classic paper-and-pencil racing games." />
+	<meta property="fb:app_id" content="966242223397117" />
+    <meta property='og:video' content='https://www.youtube.com/v/0ph7bODPooA' />
+</head>
+<body>
+
+<div id="loadingScreen" class="loading-screen">
+    <div id="divLoadingMessage">🏎🖊</div>
+    <br>
+    <br>
+    <div class="classCadre">
+        <H1>🏎🖊 Dot Race</H1>
+        <br>
+        by Boun 2024
+    </div>
+    <br>
+    <br>
+    <div class="loading-spinner"></div>
+</div>
+
+<div id="loadingSpin" class="loading-screen" style="display: none;background-color: transparent;">
+    <div class="loading-spinner"></div>
+</div>
+
+<div id="divMain">
+    
+    <!--   ===================================================   -->
+    <!--                                GRID                     -->
+    <!--   ===================================================   -->
+    <div id="divGrid">
+        <svg id="svgFond" xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800">
+            <defs>
+                <mask id="svgMask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="darkgreen" mask="url(#svgMask)" />
+        </svg>
+        <div id="divCadreZoom"></div>        
+        <div id="divCadreZoom2"></div>
+        <div id="divNextLine"></div>
+        <div id="divNextPoint"></div>
+        <div id="divMovePoint0" class="classMovePoint"></div>
+        <div id="divMovePoint1" class="classMovePoint"></div>
+        <div id="divMovePoint2" class="classMovePoint"></div>
+        <div id="divMovePoint3" class="classMovePoint"></div>
+        <div id="divMovePoint4" class="classMovePoint"></div>
+        <div id="divMovePoint5" class="classMovePoint"></div>
+        <div id="divMovePoint6" class="classMovePoint"></div>
+        <div id="divMovePoint7" class="classMovePoint"></div>
+
+        <div id="divTitleTrackName"></div>
+    </div>
+
+    <div id="divMenuBtn" class="overBtn">Menu
+    </div>
+
+    <!--   ===================================================   -->
+    <!--                                Menu                     -->
+    <!--   ===================================================   -->
+    <div id="divMenuContainer">
+        <div class="classCadre"> 
+            <span style="font-size: 16px;font-weight: 900;">🏎🖊 Dot Race</span>
+            <br>
+            by Boun 2024 ©
+            <br>
+            <i>V1.4</i>
+        </div>
+
+        <div class="classCadre" style="text-align: left;">
+            <div style="text-align: center;">
+                <b>Game Mode</b>
+            </div>            
+            <div>
+                <input type="radio" id="modeTime" name="gameMode" value="modeTime" />
+                <label for="modeTime">⏱ Time Attack</label>
+            </div>              
+            <div>
+                <input type="radio" id="modeRace" name="gameMode" value="modeRace" />
+                <label for="modeRace">🏎 Race</label>
+            </div>              
+            <div>
+                <input type="radio" id="modeChamp" name="gameMode" value="modeChamp" checked />
+                <label for="modeChamp">🏆 Championship</label>
+            </div>
+        </div>
+
+        <div class="classCadre">
+            <button id="btnRace" class="classBouton">Start 🏆<br>Championship</button>
+        </div>
+
+        <!--   ===================================================   -->
+        <!--                                Tracks                   -->
+        <!--   ===================================================   -->
+        <div class="classCadre">
+            <button id="btnCfgTracks" class="classBouton classBoutonCfg">
+                ⚙ Config Tracks 🏁
+                <br>
+                <br>
+                <div id="btnCfgTracksLabel">(6 x Buildin)</div>
+                <div id="btnCfgTracksPng"></div>
+            </button>
+
+            <div id="divMenuMainTracks" class="classCadreBig">
+                <div class="classCadre" style="text-align: left;">
+                    <div  style="text-align: center;">
+                        <b>Track Mode</b>
+                    </div>            
+                    <div>
+                        <input type="radio" id="trackModeBuildin" name="trackMode" value="trackModeBuildin"  />
+                        <label for="trackModeBuildin">Buildin Tracks ©</label>
+                    </div>              
+                    <div>
+                        <input type="radio" id="trackModeRandom" name="trackMode" value="trackModeRandom" checked />
+                        <label for="trackModeRandom">Random Tracks 🎲</label>
+                    </div>
+                </div>
+
+                <div id="divMenuChampionDetail" class="classCadre">
+                    <b>Championship length</b>
+
+                    <div id="divRangeNbRaces">
+                        <label for="rangeNbRaces">Nb Tracks:</label><br />
+                        <input type="range" class="rangePlayers" id="rangeNbRaces" name="NbRaces" list="valuesRaces" min="3" max="18" step="3" value="6"/>
+                        <datalist id="valuesRaces">
+                            <option value="3" label="3"></option>
+                            <option value="6" label="6"></option>
+                            <option value="9" label="9"></option>
+                            <option value="12" label="12"></option>
+                            <option value="15" label="15"></option>
+                            <option value="18" label="18"></option>
+                        </datalist>
+                    </div>
+                </div>
+            
+
+
+                <div id="divMenuTrackGen" class="classCadre"> 
+                    <b>Track Generator</b>
+                    <br>
+                    <label for="rangeGTturnAngle" id="labelGTturnAngle">maxTurnAngle</label>
+                    <br>
+                    <input type="range" id="rangeGTturnAngleMin" min="10" max="120" step="1" value="40"/>
+                    <br>
+                    <input type="range" id="rangeGTturnAngleMax" min="10" max="120" step="1" value="80"/>
+                    <br>
+                    <br>
+                    <label for="rangeGTtrackWidth" id="labelGTtrackWidth">trackWidth</label>
+                    <br>
+                    <input type="range" id="rangeGTtrackWidthMin" min="1" max="6" step="1" value="2"/>
+                    <br>
+                    <input type="range" id="rangeGTtrackWidthMax" min="1" max="6" step="1" value="3"/>
+                    <br>
+                    <br>
+                    <label for="rangeGTtrackLengthMin" id="labelGTtrackLength">trackLength</label>
+                    <br>
+                    <input type="range" id="rangeGTtrackLengthMin" min="5" max="150" step="1" value="40"/>
+                    <br>
+                    <input type="range" id="rangeGTtrackLengthMax" min="5" max="150" step="1" value="60"/>
+                    <br>
+                    <br>
+                    <label for="rangeGTsectionLength" id="labelGTsectionLength">sectionLength</label>
+                    <br>
+                    <input type="range" id="rangeGTsectionLengthMin" min="2" max="15" step="1" value="4"/>
+                    <br>
+                    <input type="range" id="rangeGTsectionLengthMax" min="2" max="15" step="1" value="8"/>
+                    <br>
+                    <br>
+                    <label for="rangeGTsectionGap" id="labelGTsectionLength">Gap between sections</label>
+                    <br>
+                    <input type="range" id="rangeGTsectionGap" min="1" max="10" step="1" value="5"/>
+                    <br>
+                    <div id="divGTmessage"></div>
+                </div>
+
+                <div id="divMenuChampionTracksContainer" class="classCadre">
+                    <div id="divMenuChampionTracks"></div>
+                </div>
+
+
+                <div id="divMenuTrackDetail" class="classCadre" style="display: none;">
+                    <div class="classHoriz">
+                        <div>
+                            Track Record
+                            <div id="divTrackRecord"></div>
+                        </div>
+                        <div id="divTrackName"></div>
+
+                        <div>
+                            <div id="divTrackSize"></div>
+                            <div id="divTrackMxPl"></div>
+                        </div>
+                        <button id="btnReverseTrack" class="classBouton">Reverse Track ♻</button>
+
+                    </div>
+                    
+                    <br>
+                    <div class="classHoriz">
+                        <button id="btnTrackLeft" class="classBouton">⬅</button>
+                        <div id="trackPreviewPng"></div>
+                        <button id="btnTrackRight" class="classBouton">➡</button>
+                    </div>
+
+                </div>
+                <div id="divMenuTracksList" class="classCadre" style="display: none;">
+                    <div id="divTracksBoutons"></div>
+                </div>
+
+            </div>
+        </div>
+        <!--   ===================================================   -->
+        <!--                                Players                  -->
+        <!--   ===================================================   -->
+        <div class="classCadre">
+            <button id="btnCfgPlayers" class="classBouton classBoutonCfg">⚙ Config Players 👨🤖<br>(1 human + 7 Ias)</button>
+
+            <div id="divMenuMainPlayers" class="classCadreBig">
+
+                <div id="divCadrePlayersListContainer" class="classCadre">
+                    <b>Players</b>
+                    <div id="divCadreMenuPlayers">
+                        <div id="divRangeNbPlayers">
+                            <label id="labelRangeNbPlayers" for="rangeNbPlayers">Nb Players: 8 (8 max)</label><br />
+                            <input type="range" class="rangePlayers" id="rangeNbPlayers" name="monNom" list="values" min="1" max="8" step="1" value="8"/>                  
+                        </div>
+                        <div id="divRangeNbHuman">
+                            <label for="rangeNbHuman">Nb Humans:</label><br />
+                            <input type="range" class="rangePlayers" id="rangeNbHuman" name="NbHuman" list="valuesHuman" min="0" max="4" step="1" value="1"/>
+                            <datalist id="valuesHuman">
+                                <option value="0" label="0"></option>
+                                <option value="1" label="1"></option>
+                                <option value="2" label="2"></option>
+                                <option value="3" label="3"></option>
+                                <option value="4" label="4"></option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div id="divCadrePlayersList" style="text-align:right;"> 
+                    </div>
+                </div>
+
+
+                <div class="classCadre">
+                    <b>Ia Config</b>
+                    <br>
+                    <label for="rangeIaDepth" id="labelIaDepth">👨 Human tips level</label>
+                    <br>
+                    <input type="range" id="rangeIaDepth" min="2" max="8" step="1" value="5"/>
+                    <br>
+                    <label for="checkTipBest">Tips for best 💚</label>
+                    <input type="checkbox" id="checkTipBest" checked/>
+                    <br>
+                    <label for="checkTipTarget">Tips for target 🎯</label>
+                    <input type="checkbox" id="checkTipTarget" checked/>
+                    <br>
+                    <label for="checkTipLoose">Tips for loose 💀</label>
+                    <input type="checkbox" id="checkTipLoose" checked/>
+                    <br>
+                    <br>
+                    <label for="rangeIaDepthMin" id="labelIaDepthMin">🤖 Opponent Level Min</label>
+                    <br>
+                    <input type="range" id="rangeIaDepthMin" min="2" max="8" step="1" value="2"/>
+                    <br>
+                    <label for="rangeIaDepthMax" id="labelIaDepthMax">🤖 Opponent Level Max</label>
+                    <br>
+                    <input type="range" id="rangeIaDepthMax" min="2" max="8" step="1" value="5"/>
+                    <br>
+                    <br>
+                    <label for="rangeIaAggress" id="labelIaAggress">🤖 Opponent Aggressivity 🤪</label>
+                    <br>
+                    <input type="range" id="rangeIaAggress" min="1" max="7" step="1" value="2"/>
+                    <br>
+
+                </div>
+
+            </div>
+        </div>
+        <!--   ===================================================   -->
+        <!--                                Footer                   -->
+        <!--   ===================================================   -->
+        <div class="classCadre"> 
+            <div id="divFullScreenOnMenu">📺 full screen</div>
+        </div>
+
+        <div class="classCadre">
+            Tutorial
+            <br>
+            <A href="https://www.jeuxetcompagnie.fr/jeu-course-papier/" target="_blank">Règles</A>
+            <br> 
+            <A href="https://en.wikipedia.org/wiki/Racetrack_(game)" target="_blank">Rules</A>
+        </div>
+
+    </div>
+    <!--   ===================================================   -->
+    <!--                                PAUSE                    -->
+    <!--   ===================================================   -->
+    <div id="divPauseContainer">
+        <div class="classCadre">
+            <div id="divPauseTitle"></div>
+            <br>
+            <br>
+            <button id="btnPauseRestart" class="classBouton">Restart Race 🚀</button>
+            <br>
+            <br>
+            <button id="btnPauseMenu" class="classBouton">Quit & back to Menu ☑</button>
+            <br>
+            <br>
+            <button id="btnPauseClose" class="classBouton">Close (resume) ❌</button>
+        </div> 
+    </div>
+
+    <!--   ===================================================   -->
+    <!--                                FINISH                   -->
+    <!--   ===================================================   -->
+    <div id="divFinishContainer">
+        <div class="classCadre">
+            <div id="divFinishRanking"></div>
+            <br>
+            <div id="divFinishResult"></div>
+            <button id="btnFinishRestart" class="classBouton">Restart Race 🚀</button>
+            <br>
+            <button id="btnFinishReverse" class="classBouton">Reverse Track ♻</button>
+            <br>
+            <button id="btnFinishNext" class="classBouton">Next Race ⏭</button>
+            <br>
+            <button id="btnFinishMenu" class="classBouton">Back to Menu ☑</button>
+            <br>
+            <br>
+            <button id="btnFinishClose" class="classBouton">Close ❌</button>
+        </div> 
+    </div>
+
+    <!--   ===================================================   -->
+    <!--                                Zoom                     -->
+    <!--   ===================================================   -->
+    <div id="divZoomLook" class="overBtn">👁️</div>
+
+    <div id="divZoomOptionsContainer" class="classOptionsContainer">
+        <div class="classHoriz" style="align-items: center;">
+            <div id="divFullScreen" class="underBtn">📺</div> full screen
+        </div>
+        <div class="classHoriz" style="align-items: center;">
+            <div id="divCenterPos" class="underBtn">📌</div> on point
+        </div>
+        <div class="classHoriz" style="align-items: center;">
+            <div id="divCenterZoom" class="underBtn">🔲</div> croped view
+        </div>
+        <div class="classHoriz" style="align-items: center;">
+            <div id="divCenter" class="underBtn">🔳</div> large view
+        </div>
+        <div class="classHoriz" style="align-items: center;">
+            <div id="zoomIn" class="underBtn">➕</div> Zoom In
+        </div>
+        <div class="classHoriz" style="align-items: center;">
+            <div id="zoomOut" class="underBtn">➖</div> Zoom Out
+        </div>
+        <br>
+        <br>
+        <label for="rangeZoomScale">Default zoom</label>
+        <br>
+        <input type="range" id="rangeZoomScale" min=".2" max="2" step=".1" value="1.2"/>
+        <br>
+        <label for="rangeZoomElan">Speed impact</label>        
+        <br>
+        <input type="range" id="rangeZoomElan" min=".01" max=".1" step=".01" value=".05"/>
+        <br>
+        <br>
+        <label for="chkFollowPoint">Follow the point</label>        
+        <input type="checkbox" id="chkFollowPoint" checked/>
+        <br>
+        <label for="chkFollowIa">Follow Best Ia</label>        
+        <input type="checkbox" id="chkFollowIa" checked/>
+        <br>
+        <label for="chkShowTrace">Show Trace</label>        
+        <input type="checkbox" id="chkShowTrace" />
+        <br>
+    </div>
+    <div id="divZoomOptions" class="overBtn">🔎</div>
+
+    <!--   ===================================================   -->
+    <!--                               Sound                     -->
+    <!--   ===================================================   -->
+
+    <div id="divSoundContainer" class="classOptionsContainer">
+
+        <div style="text-align: center;">
+            <b>Sound Mode</b>
+        </div>            
+        <div>
+            <input type="radio" id="modeMarker" name="soundMode" value="" />
+            <label for="modeMarker">🖊 Marker</label>
+        </div>              
+        <div>
+            <input type="radio" id="modeCar" name="soundMode" value="Car" checked/>
+            <label for="modeCar">🏎 A250 Sport</label>
+        </div>
+        <div>
+            <input type="radio" id="modeRobot" name="soundMode" value="Robot" />
+            <label for="modeRobot">🤖 Robot sound</label>
+        </div>
+        <div>
+            <input type="radio" id="modeMute" name="soundMode" value="Mute"  />
+            <label for="modeMute">🔇 No Sound</label>
+        </div>
+        <br>
+        <br>
+        <label for="chkSoundPosition">Bouton sound</label>        
+        <input type="checkbox" id="chkSoundPosition" />
+        <br>
+        <label for="rangeDelayMoveHuman">⏱ Move Human 👨</label>
+        <br>
+        <input type="range" id="rangeDelayMoveHuman" min="50" max="2000" step="25" value="700"/>
+        <br>
+        <label for="rangeDelayMoveIa">⏱ Move IA 🤖</label>
+        <br>
+        <input type="range" id="rangeDelayMoveIa" min="50" max="2000" step="25" value="200"/>
+        <br>
+        <br>
+        <label for="rangeIaVolume">🔊 Ia Volume 🤖</label>
+        <br>
+        <input type="range" id="rangeIaVolume" min="0" max="1" step=".1" value=".2"/>
+        <br>
+        <br>
+        
+    </div>
+
+    <div id="divSound" class="overBtn">🔊</div>
+
+    <!--   ===================================================   -->
+    <!--                                Score                    -->
+    <!--   ===================================================   -->
+    <div id="divScore">        
+        <div id="divBest"></div>
+    </div>
+
+    <div id="divRanking"></div>
+    <div id="divRankLoading"></div>
+    <div id="divSpeed">
+        O
+    </div>
+
+    <div id="numpad">
+        <div class="divRound">
+        <button id="btn1" data-value="1" class="numpadBtn arrowL" style="rotate: 45deg;">↖</button>
+        </div>
+        <div class="divRound">
+        <button id="btn2" data-value="2" class="numpadBtn arrowU">⬆</button>
+        </div>
+        <div class="divRound">
+        <button id="btn3" data-value="3" class="numpadBtn arrowR" style="rotate: 315deg;">↗</button>
+        </div>
+        <div class="divRound">
+        <button id="btn4" data-value="4" class="numpadBtn arrowL">↗</button>
+        </div>
+        <div class="divRound">
+        <button id="btn5" data-value="5" class="numpadBtn flower">⚪</button>
+        </div>
+        <div class="divRound">
+        <button id="btn6" data-value="6" class="numpadBtn arrowR">↗</button>
+        </div>
+        <div class="divRound">
+        <button id="btn7" data-value="7" class="numpadBtn arrowL" style="rotate: 315deg;">↗</button>
+        </div>
+        <div class="divRound">
+        <button id="btn8" data-value="8" class="numpadBtn arrowD">↗</button>
+        </div>
+        <div class="divRound">
+        <button id="btn9" data-value="9" class="numpadBtn arrowR" style="rotate: 45deg;">↗</button>
+        </div>
+    
+    </div>
+
+
+
+
+    <div id="divRibbon" class="ribbon">Welcome !</div>
+</div>
+
+
+<audio id="myAudio0"></audio>
+<audio id="myAudio1"></audio>
+<audio id="myAudio2"></audio>
+<audio id="myAudio3"></audio>
+<audio id="myAudio4"></audio>
+<audio id="myAudio5"></audio>
+<audio id="myAudio6"></audio>
+<audio id="myAudio7"></audio>
+<audio id="myAudio8"></audio>
+<audio id="myAudio9"></audio>
+<audio id="myAudio10"></audio>
+<audio id="myAudio11"></audio>
+<audio id="myAudio12"></audio>
+<audio id="myAudio13"></audio>
+<audio id="myAudio14"></audio>
+<audio id="myAudio15"></audio>
+<audio id="myAudio16"></audio>
+<audio id="myAudio17"></audio>
+<audio id="myAudio18"></audio>
+<audio id="myAudio19"></audio>
+<script src="Tracks.js"></script>
+<script src="DotRace.js"></script>
+</body>
+</html>

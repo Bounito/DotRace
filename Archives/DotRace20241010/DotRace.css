@@ -1,0 +1,447 @@
+:root {
+    --cellSizePx: 20px; /* Variable globale pour une couleur rouge clair */
+    --cellSize: 20; /* Variable globale pour une couleur rouge clair */
+    --cellNbX: 50; /* Variable globale pour une couleur bleu foncé */
+    --cellNbY: 50; /* Variable globale pour une couleur bleu foncé */
+    --pointSizePx: 18px;
+}
+
+body, html {
+    font-family: Arial;
+    padding: 0px;
+    margin: 0px;
+    background-color: rgb(196, 196, 196);
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+#divMain {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+}
+/**************************************************/
+/***                                            ***/
+/***             Boutons Flottants              ***/
+/***                                            ***/
+/**************************************************/
+
+
+
+/* =============== NUMPAD ============= */
+#numpad {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    bottom: 10px; /* À 20 pixels du bas */
+    right: 10px; /* À 20 pixels de la droite */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px; /* Espace entre les points */
+
+    background-color: rgba(0, 0, 255, 0.5);
+    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+}
+.numpadBtn {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    /*background-color: lightblue;*/
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    user-select: none;
+}
+
+
+#divScore {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    top: 10px;
+    right: 10px;
+    background-color: rgba(239, 201, 76, 0.5);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+    font-size: 14px;
+    user-select: none;
+}
+
+#divUndo {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    top: 50px;
+    right: 10px;
+    margin: 0px;
+    text-align: center;
+    font-size: 14px;
+    user-select: none;
+}
+#btnUndo {
+    border-radius: 10px;
+    margin: 0px;
+    text-align: left;
+    font-size: 12px;
+    user-select: none;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+}
+#spnPoint {
+    background-color: darkblue;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 50%;
+    width: var(--pointSizePx);
+    height: var(--pointSizePx);
+    line-height: var(--pointSizePx);
+    user-select: none;
+    position:absolute;
+    top : 4px;
+}
+
+
+
+#divSpeed {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    bottom: 180px;
+    right: 10px;
+    width: 30px;
+    height: 20px;
+    background-color: rgba(87, 239, 76, 0.5);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+    font-size: 14px;
+    user-select: none;
+    border-top: 4px solid black;
+}
+
+
+#divMenu {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    top: 10px; /* À 20 pixels du bas */
+    left: 10px; /* À 20 pixels de la droite */
+    background-color: rgba(239, 201, 76, 0.8);
+    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+    user-select: none;
+}
+#divMenuBtn {
+    cursor: pointer;
+    text-align: center;
+    background-color: rgb(0, 0, 255);
+    color:white;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0px;
+    font-size: 14px;
+    user-select: none;
+}
+#divConfigBtn {
+    cursor: pointer;
+    text-align: center;
+    background-color: rgb(0, 255, 0);
+    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    width: 30px;
+    display: none;
+    user-select: none;
+}
+#divTracksBoutons {
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    display: none;
+}
+#trackPreview {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    display: none;
+}
+#loadTrackBtn {
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+    display: none;
+}
+
+
+#divCenter {
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: lightgray;
+    position: fixed;
+    bottom: 130px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+  }
+
+#zoomIn {
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: lightgray;
+    position: fixed;
+    bottom: 90px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+  }
+#zoomOut {
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: lightgray;
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+  }
+
+#sound {
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: lightgray;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    user-select: none;
+  }
+
+/**************************************************/
+/***                                            ***/
+/***                  GRILLE                    ***/
+/***                                            ***/
+/**************************************************/
+#divGrid {
+    position: absolute;
+    transform-origin: center;
+    transition: transform 2s ease,scale 2s ease;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    --divSizeX: calc(var(--cellSizePx) * var(--cellNbX) + 1px);
+    --divSizeY: calc(var(--cellSizePx) * var(--cellNbY) + 1px);
+
+    display: grid; /* Pour afficher la grille */
+    grid-template-columns: repeat(var(--cellNbX), var(--cellSizePx)); /* 36 colonnes de 10px chacune */
+    grid-template-rows: repeat(var(--cellNbY), var(--cellSizePx)); /* 36 lignes de 10px chacune */
+    gap: 0px; /* Pas d'espace entre les points */
+
+    width: var(--divSizeX); /* Largeur de la grille qui prend toute la largeur de l'écran */
+    height: var(--divSizeY); /* Hauteur de la grille sur toute la hauteur de l'écran */
+    /*position: relative; /* Nécessaire pour la surimpression */
+    padding: 0px;
+    margin: 0px;
+    
+
+    --size: var(--cellSizePx); /* Taille d'une cellule de la grille */
+    --thickness: 1px; /* Taille du point (bordure des points) */
+    background:
+      conic-gradient(
+        from 90deg at var(--thickness) var(--thickness), 
+        transparent 25%, #93a7bb 0
+      ) 0 0 / var(--size) var(--size); /* Taille du motif de la grille */
+}
+
+
+#svgFond {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.divDot {
+    background-color: rgb(195, 36, 185,.3);
+    border-radius: 50%;
+    width: 10px; /* Ajuste la taille des points connectés */
+    height: 10px;
+    margin: -5px; /* Décalage négatif pour centrer le point */
+    position: absolute; /* Position absolue pour pouvoir les placer sur la grille */
+    font-family: Arial, Helvetica, sans-serif;
+}
+.divDotBlocPlay {
+    background-color: rgba(0, 127, 38, 1);
+    border-radius: 0px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: -10px; /* Décalage négatif pour centrer le point */
+    position: absolute; /* Position absolue pour pouvoir les placer sur la grille */
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+
+
+
+
+.divDotBlocEdit {
+    background-color: rgba(0, 127, 38, 0.5);
+    border-radius: 50%;
+    width: 16px; /* Ajuste la taille des points connectés */
+    height: 16px;
+    margin: -8px; /* Décalage négatif pour centrer le point */
+    position: absolute; /* Position absolue pour pouvoir les placer sur la grille */
+}
+.divDotStart {
+    position: absolute;
+    width: 20px; /* Largeur totale du damier */
+    height: 20px; /* Hauteur totale du damier */
+    margin: -10px; /* Décalage négatif pour centrer le point */
+    border-radius: 0px;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, #0f0 25%, transparent 25%, transparent 75%, #0f0 75%), linear-gradient(45deg, #0f0 25%, transparent 25%, transparent 75%, #0f0 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+}
+.divDotFinish {
+    position: absolute;
+    width: 20px; /* Largeur totale du damier */
+    height: 20px; /* Hauteur totale du damier */
+    margin: -10px; /* Décalage négatif pour centrer le point */
+    border-radius: 0px;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%), linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+}
+
+/*==========================================*/
+
+.connected-point {
+    background-color: darkblue;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 50%;
+    width: var(--pointSizePx);
+    height: var(--pointSizePx);
+    line-height: var(--pointSizePx);
+    margin: calc(var(--pointSizePx) * -.5);
+    position: absolute; /* Position absolue pour pouvoir les placer sur la grille */
+    user-select: none;
+}
+.line {
+    position: absolute;
+    background-color: darkblue; /* Couleur de la ligne */
+    width: 3px; /* Épaisseur de la ligne */
+    border-radius: 3px;
+    transition: opacity 1s ease;
+}
+#divNextPoint {
+    background-color: white; 
+    border-radius: 50%;
+    width: var(--pointSizePx);
+    height: var(--pointSizePx);
+    margin: calc((var(--pointSizePx) * -.5));
+    position: absolute; /* Position absolue pour pouvoir les placer sur la grille */
+    box-shadow: inset 0 0 0 5px darkblue; /* Bordure interne rouge de 5px */
+    transition: opacity 1s ease;
+}
+#divNextLine {
+    position: absolute;
+    background: linear-gradient(0deg, #00f 12.5%, transparent 12.5%, transparent 37.5%, #00f 37.5%, #00f 62.5%, transparent 62.5%, transparent 87.5%, #00f 87.5%);
+    background-size: 10px 10px;
+    opacity: 0;
+    width: 3px; /* Épaisseur de la ligne */
+    border-radius: 3px;
+    transition: opacity 1s ease;
+}
+
+#divCadreZoom {
+    position: absolute;
+    background-color: rgba(0, 0, 255, 0.5);
+    width: calc(var(--cellSizePx) * 3);
+    height: calc(var(--cellSizePx) * 3);
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0px;
+}
+#divCadreZoom2 {
+    position: absolute;
+    background-color: rgba(0, 0, 255, 0.2);
+    width: calc(var(--cellSizePx) * 3);
+    height: calc(var(--cellSizePx) * 3);
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/**************************************************/
+/***                                            ***/
+/***                  RIBBON                    ***/
+/***                                            ***/
+/**************************************************/
+
+
+/* HTML: <div class="ribbon">Your text content</div> */
+.ribbon {
+    position: fixed; /* Positionnement fixe par rapport à la fenêtre */
+    top: 10px;
+    left: 50%; /* Positionne l'élément au centre de la fenêtre */
+    transform: translateX(-50%);
+    opacity: 0;
+    font-size: 14px;
+    user-select: none;
+    text-align: center;
+    color: #fff;
+    transition: opacity 1s ease;
+
+    --s: 1.8em; /* the ribbon size */
+    --d: .8em;  /* the depth */
+    --c: .8em;  /* the cutout part */
+    
+    padding: var(--d) calc(var(--s) + .5em) 0;
+    line-height: 1.8;
+    background:
+      conic-gradient(from  45deg at left  var(--s) top var(--d),
+       #0008 12.5%,#0000 0 37.5%,#0004 0) 0   /50% 100% no-repeat,
+      conic-gradient(from -45deg at right var(--s) top var(--d),
+       #0004 62.5%,#0000 0 87.5%,#0008 0) 100%/50% 100% no-repeat;
+    clip-path: polygon(0 0,calc(var(--s) + var(--d)) 0,calc(var(--s) + var(--d)) var(--d),calc(100% - var(--s) - var(--d)) var(--d),calc(100% - var(--s) - var(--d)) 0,100% 0, calc(100% - var(--c)) calc(50% - var(--d)/2),100% calc(100% - var(--d)),calc(100% - var(--s)) calc(100% - var(--d)),calc(100% - var(--s)) 100%,var(--s) 100%,var(--s) calc(100% - var(--d)),0 calc(100% - var(--d)),var(--c) calc(50% - var(--d)/2));
+    background-color: #D95B43; /* the main color */
+    width: fit-content;
+  }
+
+

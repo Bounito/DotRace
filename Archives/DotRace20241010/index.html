@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="DotRace.css">
+    <title>🏎 Dot Race</title>
+</head>
+<body>
+
+<div id="divMain">
+    
+    <div id="divGrid">
+        <svg id="svgFond" xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800">
+            <defs>
+                <mask id="svgMask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="darkgreen" mask="url(#svgMask)" />
+        </svg>
+        <div id="divCadreZoom"></div>        
+        <div id="divCadreZoom2"></div>
+        <div id="divNextLine"></div>
+        <div id="divNextPoint"></div>
+        
+    </div>
+
+    <div id="divScore">
+        No record
+    </div>
+    <div id="divUndo">          
+        <button id="btnUndo">
+            🔙Undo&nbsp;<span id="spnPoint">0</span>
+        </button>
+    </div>
+    <div id="divSpeed">
+        O
+    </div>
+
+    <div id="numpad">
+        <button id="btn1" data-value="1" class="numpadBtn">↖</button>
+        <button id="btn2" data-value="2" class="numpadBtn">⬆</button>
+        <button id="btn3" data-value="3" class="numpadBtn">↗</button>
+        <button id="btn4" data-value="4" class="numpadBtn">⬅</button>
+        <button id="btn5" data-value="5" class="numpadBtn">⚪</button>
+        <button id="btn6" data-value="6" class="numpadBtn">➡</button>
+        <button id="btn7" data-value="7" class="numpadBtn">↙</button>
+        <button id="btn8" data-value="8" class="numpadBtn">⬇</button>
+        <button id="btn9" data-value="9" class="numpadBtn">↘</button>
+    </div>
+    <div id="divMenu">
+        <div id="divMenuBtn">Menu</div>
+        <div id="divConfigBtn">🛠</div>
+        <button id="loadTrackBtn">Load Map</button>
+        <div id="divTracksBoutons"></div>
+        <div id="trackPreview"></div>
+        <A href="https://www.jeuxetcompagnie.fr/jeu-course-papier/" target="_blank">Règles</A>
+         - 
+        <A href="https://en.wikipedia.org/wiki/Racetrack_(game)" target="_blank">Rules</A>
+
+
+    </div>
+    <div id="divRibbon" class="ribbon">Welcome !</div>
+</div>
+
+<div id="divCenter">🔳</div>
+<div id="zoomIn">➕</div>
+<div id="zoomOut">➖</div>
+<div id="sound">🔊</div>
+<audio id="myAudio0"></audio>
+<audio id="myAudio1"></audio>
+<audio id="myAudio2"></audio>
+<audio id="myAudio3"></audio>
+<audio id="myAudio4"></audio>
+<audio id="myAudio5"></audio>
+<audio id="myAudio6"></audio>
+<audio id="myAudio7"></audio>
+<audio id="myAudio8"></audio>
+<audio id="myAudio9"></audio>
+
+<script src="Tracks.js"></script>
+<script src="DotRace.js"></script>
+</body>
+</html>

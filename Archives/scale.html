@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Zoomable and Draggable Background</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #fixedDiv {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 200px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid black;
+            z-index: 10;
+            text-align: center;
+            line-height: 100px;
+        }
+        #backgroundDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/1500');
+            background-size: cover;
+            background-position: center;
+            transform-origin: center;
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+    <div id="fixedDiv">Fixed Div</div>
+    <div id="backgroundDiv"></div>
+    <script>
+        const backgroundDiv = document.getElementById('backgroundDiv');
+        let scale = 1;
+        let initialDistance = 0;
+        let isDragging = false;
+        let startX, startY, initialTransform;
+
+        // Zoom with mouse wheel
+        window.addEventListener('wheel', (event) => {
+            if (event.deltaY > 0) {
+                scale *= 0.9; // Zoom out
+            } else {
+                scale *= 1.1; // Zoom in
+            }
+            backgroundDiv.style.transform = `scale(${scale})`;
+        });
+
+        // Zoom with pinch gesture on mobile
+        backgroundDiv.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 2) {
+                const touch1 = event.touches[0];
+                const touch2 = event.touches[1];
+                initialDistance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
+            }
+        });
+
+        backgroundDiv.addEventListener('touchmove', (event) => {
+            if (event.touches.length === 2) {
+                const touch1 = event.touches[0];
+                const touch2 = event.touches[1];
+                const currentDistance = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
+                const distanceDifference = currentDistance - initialDistance;
+
+                if (distanceDifference > 0) {
+                    scale *= 1.1; // Zoom in
+                } else if (distanceDifference < 0) {
+                    scale *= 0.9; // Zoom out
+                }
+
+                backgroundDiv.style.transform = `scale(${scale})`;
+                initialDistance = currentDistance;
+            }
+        });
+
+        // Drag with mouse
+        backgroundDiv.addEventListener('mousedown', (event) => {
+            isDragging = true;
+            startX = event.clientX;
+            startY = event.clientY;
+            initialTransform = backgroundDiv.style.transform;
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            if (isDragging) {
+                const deltaX = event.clientX - startX;
+                const deltaY = event.clientY - startY;
+                backgroundDiv.style.transform = `${initialTransform} translate(${deltaX}px, ${deltaY}px)`;
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Drag with touch
+        backgroundDiv.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 1) {
+                isDragging = true;
+                startX = event.touches[0].clientX;
+                startY = event.touches[0].clientY;
+                initialTransform = backgroundDiv.style.transform;
+            }
+        });
+
+        backgroundDiv.addEventListener('touchmove', (event) => {
+            if (isDragging && event.touches.length === 1) {
+                const deltaX = event.touches[0].clientX - startX;
+                const deltaY = event.touches[0].clientY - startY;
+                backgroundDiv.style.transform = `${initialTransform} translate(${deltaX}px, ${deltaY}px)`;
+            }
+        });
+
+        backgroundDiv.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+    </script>
+</body>
+</html>
